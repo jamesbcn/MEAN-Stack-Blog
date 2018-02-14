@@ -1,0 +1,1 @@
+With validation the idea is to create enough error-specific logic that a general error message to never returned to ensure that the application is very user-friendly. 
