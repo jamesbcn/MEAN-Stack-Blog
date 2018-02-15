@@ -5,22 +5,31 @@
             <div class="col-md-4">
                 <h2>Register New User</h2>
                 <hr>
+                <!--
+                <div class="row show-hide-message">-->
+                        <div [ngClass]="messageClass">
+                          {{ message }}
+                        </div><!--
+                </div>-->
+                      
             </div>
         </div>
+
         <!-- Username -->
         <div class="row">
             <div class="col-md-4 field-label">
-                <label for="name">Name</label>
+                <label>Name</label>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                         <input type="text" name="username" class="form-control"
-                               placeholder="Username" formControlName="username" required autofocus>
+                               placeholder="Username" formControlName="username"
+                               (focus)="usernameMessage= ''" (blur)="checkUsername()" />
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 feedback">
+            <div class="col-md-4" [ngClass]="{'error': (form.controls.username.errors && form.controls.username.dirty) || (!usernameValid && form.controls.username.dirty), 'success': !form.controls.username.errors && usernameValid}">
                 <div *ngIf="form.controls.username.errors?.required && form.controls.username.dirty">
                     {{ alert }}
                 </div>
@@ -30,22 +39,27 @@
                 <div *ngIf="form.controls.username.errors?.validateUsername && form.controls.username.dirty">
                     Username must not have any special characters
                 </div>
+                <div *ngIf="usernameMessage">
+                    {{ usernameMessage }}
+                </div>
             </div>
         </div>
+
         <!-- Email -->
         <div class="row">
             <div class="col-md-4 field-label">
-                <label for="email">E-Mail Address</label>
+                <label>E-Mail Address</label>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                         <input type="text" name="email" class="form-control"
-                               placeholder="you@example.com" formControlName="email" required autofocus>
+                               placeholder="you@example.com" formControlName="email"
+                               (focus)="emailMessage= ''" (blur)="checkEmail()" />
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 feedback">
+            <div class="col-md-4" [ngClass]="{'error': (form.controls.email.errors && form.controls.email.dirty) || (!emailValid && form.controls.email.dirty), 'success': !form.controls.email.errors && emailValid}">
                 <div *ngIf="form.controls.email.errors?.required && form.controls.email.dirty">
                         {{ alert }}
                 </div>
@@ -55,12 +69,16 @@
                 <div *ngIf="form.controls.email.errors?.validateEmail && form.controls.email.dirty">
                     Must be a valid email
                 </div>
+                <div *ngIf="emailMessage">
+                    {{ emailMessage }}
+                </div>
             </div>
         </div>
+        
         <!-- Password -->
         <div class="row">
             <div class="col-md-4 field-label">
-                <label for="password">Password</label>
+                <label>Password</label>
             </div>
             <div class="col-md-4">
                 <div class="form-group has-danger">
@@ -70,7 +88,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 feedback">
+            <div class="col-md-4" [ngClass]="{'error': (form.controls.password.errors && form.controls.password.dirty), 'success': !form.controls.password.errors}">
                 <div *ngIf="form.controls.password.errors?.required && form.controls.password.dirty">
                         {{ alert }}
                 </div>
@@ -85,7 +103,7 @@
         <!-- Confirm Password -->
         <div class="row">
             <div class="col-md-4 field-label">
-                <label for="password">Confirm Password</label>
+                <label>Confirm Password</label>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
@@ -95,7 +113,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 feedback">
+            <div class="col-md-4" [ngClass]="{'error': (form.controls.confirm.errors && form.controls.confirm.dirty) || (form.errors?.matchingPasswords && form.controls.confirm.dirty), 'success': !form.controls.confirm.errors && !form.errors?.matchingPasswords}">
                 <div *ngIf="form.controls.confirm.errors?.required && form.controls.confirm.dirty">
                         {{ alert }}
                 </div>
@@ -107,7 +125,7 @@
         <div class="row">
             <div class="col-md-4"></div>
             <div class="col-md-4">
-                <button type="submit" [disabled]="!form.valid" class="btn btn-success btn-block">Register</button>
+                <button type="submit" [disabled]="!form.valid || processing || !emailValid || !usernameValid" class="btn btn-success btn-block">Register</button>
             </div>
         </div>
     </form>

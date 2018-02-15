@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
+// import { setTimeout } from 'timers'; Angular added with but then it wouldn't compile...
 
 @Component({
   selector: 'app-register',
@@ -10,11 +12,20 @@ import { AuthService } from '../../services/auth.service';
 export class RegisterComponent implements OnInit {
 
   form: FormGroup;
-  alert = 'This field is required';
+  alert: string = 'This field is required';
+  email: string;
+  message: string;
+  messageClass: string;
+  processing: boolean = false;
+  emailValid: boolean;
+  emailMessage: string;
+  usernameValid: boolean;
+  usernameMessage: string;
 
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {
     this.createForm();
    }
@@ -34,21 +45,34 @@ export class RegisterComponent implements OnInit {
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(15),
-        this.validateUsername
+        this.validateUsername // RegEx
       ])],
       password: ['', Validators.compose([
         Validators.required,
         Validators.minLength(8),
         Validators.maxLength(35),
-        this.validatePassword
+        this.validatePassword // RegEx
       ])],
       confirm: ['', Validators.required]
     }, { validator: this.matchingPasswords('password', 'confirm') }); // custom validator for matching passwords
   }
 
+    disableForm() {
+      this.form.controls['email'].disable();
+      this.form.controls['username'].disable();
+      this.form.controls['password'].disable();
+      this.form.controls['confirm'].disable();
+    }
+
+    enableForm() {
+      this.form.controls['email'].enable();
+      this.form.controls['username'].enable();
+      this.form.controls['password'].enable();
+      this.form.controls['confirm'].enable();
+  }
+
   validateEmail(controls) {
     const regExp = new
-    // tslint:disable-next-line:max-line-length
     RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
 
     if (regExp.test(controls.value)) {
@@ -89,6 +113,8 @@ export class RegisterComponent implements OnInit {
 }
 
   onSubmit() {
+    this.processing = true; // Used to notify HTML that form is in processing, so that it can be disabled
+    this.disableForm();
     const user = {
       email: this.form.get('email').value,
       username: this.form.get('username').value,
@@ -96,6 +122,54 @@ export class RegisterComponent implements OnInit {
     };
     this.authService.registerUser(user).subscribe(data => {
       console.log(data);
+      if (!data.success) {
+        this.messageClass = 'alert alert-danger'; // Set a Bootstrap error class
+        this.message = data.message; // Server error response
+        this.processing = false; // Re-enable submit button
+        this.enableForm();
+      } else {
+        this.messageClass = 'alert alert-success'; // Set a Bootstrap success class
+        this.message = data.message; // Server success message
+        setTimeout(() => {
+          this.router.navigate(['/login']);
+        }, 2000);
+        }
+    });
+  }
+
+  // Function to check if username is still available (activated by ng-Blur)
+  checkEmail() {
+    const email = this.form.get('email').value;
+    // Function from authentication file to check if e-mail is taken
+    this.authService.checkEmail(email).subscribe(data => {
+
+      if (!data.success) {
+        this.emailValid = false; // Return email as invalid in ng-If div
+        this.emailMessage = data.message; // Return error message
+      } else if (!this.form.controls.email.errors) {
+        this.emailValid = true; // Return email as valid in ng-If div
+        this.emailMessage = data.message; // Return success message
+      } else {
+        this.emailMessage = '';
+        }
+    });
+  }
+
+  // Function to check if username is still available (activated by ng-Blur)
+  checkUsername() {
+    const username = this.form.get('username').value;
+    // Function from authentication file to check if username is taken
+    this.authService.checkUsername(username).subscribe(data => {
+
+      if (!data.success) {
+        this.usernameValid = false; // Return username as invalid in ng-If div
+        this.usernameMessage = data.message; // ng-If invalid message
+      } else if (!this.form.controls.username.errors) {
+        this.usernameValid = true; // Return username as valid in ng-If div
+        this.usernameMessage = data.message; // ng-If success message
+      } else {
+        this.usernameMessage = '';
+        }
     });
   }
 

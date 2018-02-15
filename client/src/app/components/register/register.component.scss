@@ -8,9 +8,19 @@ h2 {
       text-align: right;
     }
 
-.feedback {
+.error {
   padding-top: .5rem;
   color: red;
   font-style: italic;
 }
+
+.success {
+  padding-top: .5rem;
+  color: green;
+  font-style: italic;
+}
   
+.alert {
+  width: 100%;
+  text-align: center;
+}
