@@ -1,6 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
+
 import { routes } from './routes';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -9,6 +12,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { BlogComponent } from './components/blog/blog.component';
 import { RegisterComponent } from './components/register/register.component';
+
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [
@@ -22,9 +27,13 @@ import { RegisterComponent } from './components/register/register.component';
   ],
   imports: [
     BrowserModule,
+    HttpModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [],
+  providers: [
+    AuthService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

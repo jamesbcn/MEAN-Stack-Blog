@@ -28,7 +28,8 @@ let validEmailChecker = (email) => {
     return false; // Return error
   } else {
     // Regular expression to test for a valid e-mail
-    const regExp = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+    const regExp = new 
+    RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
     return regExp.test(email); // Return regular expression test results (true or false)
   }
 };
@@ -64,13 +65,11 @@ let usernameLengthChecker = (username) => {
 
 // Validate Function to check if valid username format
 let validUsername = (username) => {
-  // Check if username exists
   if (!username) {
-    return false; // Return error
+    return false;
   } else {
-    // Regular expression to test if username format is valid
     const regExp = new RegExp(/^[a-zA-Z0-9]+$/);
-    return regExp.test(username); // Return regular expression test result (true or false)
+    return regExp.test(username); 
   }
 };
 
@@ -88,30 +87,26 @@ const usernameValidators = [
   }
 ];
 
-// Validate Function to check password length
+// Validate  password length
 let passwordLengthChecker = (password) => {
-  // Check if password exists
   if (!password) {
-    return false; // Return error
+    return false;
   } else {
-    // Check password length
     if (password.length < 8 || password.length > 35) {
-      return false; // Return error if passord length requirement is not met
+      return false;
     } else {
-      return true; // Return password as valid
+      return true;
     }
   }
 };
 
 // Validate Function to check if valid password format
 let validPassword = (password) => {
-  // Check if password exists
   if (!password) {
-    return false; // Return error
+    return false;
   } else {
-    // Regular Expression to test if password is valid format
     const regExp = new RegExp(/^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[\d])(?=.*?[\W]).{8,35}$/);
-    return regExp.test(password); // Return regular expression test result (true or false)
+    return regExp.test(password); 
   }
 };
 

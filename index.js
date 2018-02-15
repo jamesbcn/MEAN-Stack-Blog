@@ -1,4 +1,5 @@
 const express = require('express');
+var cors = require('cors');
 const app = express();
 const router = express.Router(); // Creates a new router object.
 const mongoose = require('mongoose');
@@ -9,6 +10,7 @@ const authentication = require('./routes/authentication')(router);
 const bodyParser = require('body-parser');
 
 // Middleware
+app.use(cors({origin: 'http://localhost:4200'}));
 app.use(bodyParser.urlencoded({ extended: false })); // parse x-www-form-urlencoded
 app.use(bodyParser.json()); // parse application/json
 app.use(express.static(__dirname + '/client/dist/')); // Provide static directory for frontend
