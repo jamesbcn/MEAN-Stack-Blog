@@ -35,25 +35,25 @@ export class RegisterComponent implements OnInit {
 
   createForm() {
     this.form = this.formBuilder.group({
-      email: ['', Validators.compose([
+      email: [null, Validators.compose([
         Validators.required,
         Validators.minLength(5),
         Validators.maxLength(30),
         this.validateEmail
       ])],
-      username: ['', Validators.compose([
+      username: [null, Validators.compose([
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(15),
         this.validateUsername // RegEx
       ])],
-      password: ['', Validators.compose([
+      password: [null, Validators.compose([
         Validators.required,
         Validators.minLength(8),
         Validators.maxLength(35),
         this.validatePassword // RegEx
       ])],
-      confirm: ['', Validators.required]
+      confirm: [null, Validators.required]
     }, { validator: this.matchingPasswords('password', 'confirm') }); // custom validator for matching passwords
   }
 
@@ -146,12 +146,12 @@ export class RegisterComponent implements OnInit {
       if (!data.success) {
         this.emailValid = false; // Return email as invalid in ng-If div
         this.emailMessage = data.message; // Return error message
-      } else if (!this.form.controls.email.errors) {
-        this.emailValid = true; // Return email as valid in ng-If div
-        this.emailMessage = data.message; // Return success message
-      } else {
-        this.emailMessage = '';
-        }
+        } else if (!this.form.controls.email.errors) {
+          this.emailValid = true; // Return email as valid in ng-If div
+          this.emailMessage = data.message; // Return success message
+          } else {
+            this.emailMessage = null;
+            }
     });
   }
 
@@ -164,12 +164,12 @@ export class RegisterComponent implements OnInit {
       if (!data.success) {
         this.usernameValid = false; // Return username as invalid in ng-If div
         this.usernameMessage = data.message; // ng-If invalid message
-      } else if (!this.form.controls.username.errors) {
-        this.usernameValid = true; // Return username as valid in ng-If div
-        this.usernameMessage = data.message; // ng-If success message
-      } else {
-        this.usernameMessage = '';
-        }
+        } else if (!this.form.controls.username.errors) {
+          this.usernameValid = true; // Return username as valid in ng-If div
+          this.usernameMessage = data.message; // ng-If success message
+          } else {
+            this.usernameMessage = null;
+            }
     });
   }
 

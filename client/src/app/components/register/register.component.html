@@ -18,14 +18,14 @@
         <!-- Username -->
         <div class="row">
             <div class="col-md-4 field-label">
-                <label>Name</label>
+                <label>Username</label>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                         <input type="text" name="username" class="form-control"
-                               placeholder="Username" formControlName="username"
-                               (focus)="usernameMessage= ''" (blur)="checkUsername()" />
+                               formControlName="username"
+                               (focus)="usernameMessage=null" (blur)="checkUsername()" />
                     </div>
                 </div>
             </div>
@@ -39,7 +39,10 @@
                 <div *ngIf="form.controls.username.errors?.validateUsername && form.controls.username.dirty">
                     Username must not have any special characters
                 </div>
-                <div *ngIf="usernameMessage">
+                <div *ngIf="usernameMessage && usernameValid">
+                        <i class="material-icons">thumb_up</i>
+                    </div>
+                <div *ngIf="usernameMessage && !usernameValid">
                     {{ usernameMessage }}
                 </div>
             </div>
@@ -54,8 +57,8 @@
                 <div class="form-group">
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                         <input type="text" name="email" class="form-control"
-                               placeholder="you@example.com" formControlName="email"
-                               (focus)="emailMessage= ''" (blur)="checkEmail()" />
+                               formControlName="email"
+                               (focus)="emailMessage= null" (blur)="checkEmail()" />
                     </div>
                 </div>
             </div>
@@ -69,7 +72,10 @@
                 <div *ngIf="form.controls.email.errors?.validateEmail && form.controls.email.dirty">
                     Must be a valid email
                 </div>
-                <div *ngIf="emailMessage">
+                <div *ngIf="emailMessage && emailValid">
+                    <i class="material-icons">thumb_up</i>
+                </div>
+                <div *ngIf="emailMessage && !emailValid">
                     {{ emailMessage }}
                 </div>
             </div>
@@ -84,7 +90,7 @@
                 <div class="form-group has-danger">
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                         <input type="password" name="password" class="form-control"
-                               placeholder="Password" formControlName="password" required>
+                               formControlName="password" />
                     </div>
                 </div>
             </div>
@@ -109,7 +115,7 @@
                 <div class="form-group">
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                         <input type="password" name="confirm" class="form-control"
-                               placeholder="Password" formControlName="confirm" required>
+                               formControlName="confirm" />
                     </div>
                 </div>
             </div>

@@ -78,7 +78,7 @@ module.exports = (router) => {
         } else {
           // Check if user's e-mail is taken
           if (user) {
-            res.json({ success: false, message: 'E-mail is already in use' });
+            res.json({ success: false, message: 'E-mail is already registered' });
           } else {
             res.json({ success: true, message: 'E-mail is available' });
           }
