@@ -1,4 +1,6 @@
 const User = require('../models/user'); // Import User Model Schema
+const jwt = require('jsonwebtoken');
+const config = require('../config/database');
 
 module.exports = (router) => {
 
@@ -136,8 +138,9 @@ module.exports = (router) => {
                         if (!validPassword) {
                           res.json({ success: false, message: 'Password invalid' }); // Return error
                         } else {
-                              res.json({ success: true, message: 'Success!' }); // Return success and token to frontend
-                          }
+                              const token = jwt.sign({ userId: user._id }, config.secret, { expiresIn: '24h' }); // Create a token for client
+                              res.json({ success: true, message: 'Success!', token: token, user: { username: user.username } }); // Return success and token to frontend
+                            }
                       }
                 }
               });
