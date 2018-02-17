@@ -104,12 +104,46 @@ module.exports = (router) => {
             if (user) {
               res.json({ success: false, message: 'Username is already taken' }); // Return as taken username
             } else {
-              res.json({ success: true, message: 'Username is available' }); // Return as vailable username
+              res.json({ success: true, message: 'Username is available' }); // Return as available username
             }
           }
         });
       }
   });
+
+  /* ========
+  LOGIN ROUTE
+  ======== */
+
+  router.post('/login', (req, res) => {
+    if (!req.body.username) {
+      res.json({ success: false, message: 'No username was provided' }); 
+      } else {
+          if (!req.body.password) {
+            res.json({ success: false, message: 'No password was provided.' });
+          } else {
+              User.findOne({ username: req.body.username.toLowerCase() }, (err, user) => {
+                if (err) {
+                  res.json({success: false, message: err});
+                } else {
+                    // Check if username was found
+                    if (!user) {
+                      res.json({ success: false, message: 'Username not found.' });
+                    }
+                      else {
+                        // Test password attempt using method in user model
+                        const validPassword = user.comparePassword(req.body.password);
+                        if (!validPassword) {
+                          res.json({ success: false, message: 'Password invalid' }); // Return error
+                        } else {
+                              res.json({ success: true, message: 'Success!' }); // Return success and token to frontend
+                          }
+                      }
+                }
+              });
+            }
+        }
+    });
 
   return router; // Return router object to main index.js
 }

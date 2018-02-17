@@ -1,0 +1,31 @@
+h2 {
+    padding-top: 2rem;
+    text-align: right;
+  }
+  
+  .field-label {
+        padding-top: .5rem;
+        text-align: right;
+      }
+  
+  .error {
+    padding-top: .5rem;
+    color: red;
+    font-style: italic;
+  }
+  
+  .success {
+    padding-top: .5rem;
+    color: #28a745;
+    font-style: italic;
+  }
+    
+  .alert {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .form-control {
+    background-color: whitesmoke;
+    border: 2px dashed darkgrey;
+  }

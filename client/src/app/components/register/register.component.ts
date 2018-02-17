@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class RegisterComponent implements OnInit {
 
   form: FormGroup;
-  alert: string = 'This field is required';
+  alert: string;
   email: string;
   message: string;
   messageClass: string;
@@ -28,6 +28,7 @@ export class RegisterComponent implements OnInit {
     private router: Router
   ) {
     this.createForm();
+    this.alert = 'This field is required';
    }
 
   ngOnInit() {
