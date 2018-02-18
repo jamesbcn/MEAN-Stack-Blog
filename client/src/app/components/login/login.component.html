@@ -28,7 +28,7 @@
                   </div>
               </div>
           </div>
-          <div class="col-md-4" [ngClass]="{'error': (form.controls.username.errors && form.controls.username.dirty), 'success': !form.controls.username.valid && form.controls.username.dirty}">
+          <div class="col-md-4" [ngClass]="{'error': (form.controls.username.errors && form.controls.username.dirty), 'success': form.controls.username.valid && form.controls.username.dirty}">
               <div *ngIf="form.controls.username.errors?.required && form.controls.username.dirty">
                   {{ alert }}
               </div>
