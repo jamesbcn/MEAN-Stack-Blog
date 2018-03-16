@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+import { AuthGuard } from '../../services/auth-guard.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,22 +9,33 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
   form: FormGroup;
   alert: string;
   message: string;
   messageClass: string;
-  processing: boolean;
+  processing: boolean = false;
+  previousUrl: string; // After being re-directed here
 
   constructor(
                 private formBuilder: FormBuilder,
                 public authService: AuthService,
-                private router: Router
+                private router: Router,
+                private authGuard: AuthGuard
               ) {
     this.createForm();
     this.alert = 'This field is required';
-    this.processing = false;
+   }
+
+   ngOnInit() {
+     if (this.authGuard.redirectUrl) {
+       // if the property exists then we know that the user was re-directed here.
+       this.previousUrl = this.authGuard.redirectUrl;
+       this.authGuard.redirectUrl = undefined; // Clear the state once previousUrl is saved
+       this.messageClass = 'alert alert-danger';
+       this.message = 'You must be logged in to view that page.';
+     }
    }
 
   createForm() {
@@ -67,7 +79,15 @@ export class LoginComponent {
             this.authService.storeUserData(data.token, data.user);
 
             setTimeout(() => {
-              this.router.navigate(['/dashboard']);
+
+              if (this.previousUrl) {
+                // If user was re-directed from an unauthorised page then direct back
+                // after successful login...
+                this.router.navigate([this.previousUrl]);
+              } else {
+                // Else direct to default (dashboard).
+                this.router.navigate(['/dashboard']);
+              }
             }, 2000);
           }
     });
