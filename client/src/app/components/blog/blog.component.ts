@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BlogComponent implements OnInit {
 
+  newPost: boolean = false;
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  newBlogForm() {
+    this.newPost = true;
   }
 
 }

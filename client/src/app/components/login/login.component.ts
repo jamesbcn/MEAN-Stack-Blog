@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
        this.previousUrl = this.authGuard.redirectUrl;
        this.authGuard.redirectUrl = undefined; // Clear the state once previousUrl is saved
        this.messageClass = 'alert alert-danger';
-       this.message = 'You must be logged in to view that page.';
+       this.message = 'You must be logged in to view that page';
      }
    }
 

@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { FlashMessagesModule } from 'angular2-flash-messages';
+import { MaterialModule } from './modules/material/material.module';
 
 import { routes } from './routes';
 
@@ -37,10 +38,11 @@ export function tokenGetter() {
   ],
   imports: [
     BrowserModule,
-    HttpModule,
-    ReactiveFormsModule,
-    RouterModule.forRoot(routes),
     FlashMessagesModule.forRoot(),
+    HttpModule,
+    MaterialModule,
+    ReactiveFormsModule,
+    RouterModule.forRoot(routes)
   ],
   providers: [
     AuthService,
