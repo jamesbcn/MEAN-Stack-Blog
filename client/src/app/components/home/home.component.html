@@ -1,9 +1,9 @@
 <div class="jumbotron">
     <div class="container">
-      <h1 class="display-3">Hola, todos!</h1>
+      <h1 class="display-3">Hola a todos!</h1>
       <p>This is a MEAN stack blog application. It includes... Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-      <div class="buttons">
-        <a class="btn btn-primary btn-lg" routerLink="/register" role="button">Register &raquo;</a>
+      <div class="buttons" *ngIf="!authService.loggedIn()">
+        <a class="btn bg-dark text-white btn-lg" routerLink="/register" role="button">Register</a>
         <a class="btn btn-success btn-lg" routerLink="/login" role="button">Log in &raquo;</a>
       </div>
     </div>

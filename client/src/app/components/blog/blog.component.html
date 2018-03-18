@@ -1,3 +1,65 @@
-<p>
-  blog works!
-</p>
+<div class="buttons">
+  <a class="btn bg-dark btn-sm text-white post" role="button" *ngIf="!newPost" (click)="newBlogForm()">Post</a>
+  <a class="btn bg-secondary btn-sm text-white refresh" role="button"*ngIf="!newPost" (click)="reloadBlogs()"><i class="material-icons">refresh</i></a>
+</div>
+
+<br>
+<br>
+
+<div *ngIf="!newPost">
+  <div class="card">
+    <div class="card-header">
+      <h4 class="card-title">Post Title</h4>
+    </div>
+    <div class="card-body">
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    </div>
+    <div class="card-footer text-muted">
+      <strong>Posted by: </strong>James
+      <br />
+      <strong>Date: </strong>21st July 2018
+      <br />
+      <strong>Likes: </strong>12
+      <br />
+      <strong>Dislikes: </strong>12
+      <a class="btn btn-info btn-sm text-white" role="button" *ngIf="!newPost" (click)="newBlogForm()">Edit</a>
+      <a class="btn btn-danger btn-sm text-white" role="button"*ngIf="!newPost" (click)="reloadBlogs()">Delete</a>
+      <div class="dropdown">
+          <a class="btn btn-success btn-sm text-white refresh" role="button"*ngIf="!newPost" (click)="reloadBlogs()">
+              <i class="material-icons">thumb_up</i>
+          </a>
+          <div class="dropdown-content">
+            <a href="#">Marcos</a>
+            <a href="#">Julia</a>
+            <a href="#">Marlena</a>
+          </div>
+      </div>
+      <!-- Likes dropdown end -->
+      <div class="dropdown">
+          <a class="btn btn-warning btn-sm text-white refresh" role="button"*ngIf="!newPost" (click)="reloadBlogs()">
+              <i class="material-icons">thumb_down</i>
+          </a>
+          <div class="dropdown-content">
+            <a href="#">Gordon</a>
+            <a href="#">Caolan</a>
+            <a href="#">Elita</a>
+          </div>
+      </div>
+      <!-- Disikes dropdown end -->
+    </div> 
+    <!-- footer end -->
+    <ul class="list-group">
+        <li class="list-group-item">
+            <button class="btn btn-dark btn-sm text-white" (click)="draftComment()">Post Comment</button>
+            <br />
+            <!--
+            <form [formGroup]="">
+                <textarea name="comment" class="form-control" cols="1000" rows="4"></textarea>
+                <button class="btn bg-secondary btn-sm text-white">Submit</button>
+                <button class="btn bg-danger btn-sm text-white">Cancel</button>
+            </form>
+          -->
+        </li>
+    </ul>
+  </div>
+</div>
