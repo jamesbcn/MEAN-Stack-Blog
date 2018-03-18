@@ -37,7 +37,7 @@ let alphaNumericTitleChecker = (title) => {
 const titleValidators = [
   // First Title Validator
   {
-    validator: TitleLengthChecker,
+    validator: titleLengthChecker,
     message: 'Title must be at least 5 characters but no more than 50'
   },
   // Second Email Validator

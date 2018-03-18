@@ -5,7 +5,7 @@ const config = require('../config/database');
 
 module.exports = (router) => {
 
-  router.get('/newBlog', (req, res) => { // TODO: change URL
+  router.post('/newBlog', (req, res) => {
     res.send('test worked');
   });
 
