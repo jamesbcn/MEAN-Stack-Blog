@@ -7,7 +7,7 @@ import { tokenNotExpired } from 'angular2-jwt';
 @Injectable()
 export class AuthService {
 
-  domain: string = 'http://localhost:8080';
+  domain: string = 'http://localhost:8080/';
   user: string;
   authToken: string;
   options: object; // used to store headers
@@ -35,20 +35,20 @@ export class AuthService {
    }
 
   registerUser(user) {
-    return this.http.post(this.domain + '/authentication/register', user).map(res => res.json());
+    return this.http.post(this.domain + 'authentication/register', user).map(res => res.json());
   }
 
   checkUsername(username) {
-    return this.http.get(this.domain + '/authentication/checkUsername/' + username).map(res => res.json());
+    return this.http.get(this.domain + 'authentication/checkUsername/' + username).map(res => res.json());
   }
 
   checkEmail(email) {
-    return this.http.get(this.domain + '/authentication/checkEmail/' + email).map(res => res.json());
+    return this.http.get(this.domain + 'authentication/checkEmail/' + email).map(res => res.json());
   }
 
   // Function to log in user (taking the user object from the back-end)
   login(user) {
-    return this.http.post(this.domain + '/authentication/login', user).map(res => res.json());
+    return this.http.post(this.domain + 'authentication/login', user).map(res => res.json());
 }
 
   logout() {
@@ -76,6 +76,6 @@ export class AuthService {
   // We can use headers for that.
   getProfile() {
     this.createAuthenticationHeaders(); // Create headers before sending to API
-    return this.http.get(this.domain + '/authentication/profile', this.options).map(res => res.json());
+    return this.http.get(this.domain + 'authentication/profile', this.options).map(res => res.json());
   }
 }

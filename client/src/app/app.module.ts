@@ -19,7 +19,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { AuthGuard } from './services/auth-guard.service';
 import { NotAuthGuard } from './services/not-auth-guard.service';
 import { AuthService } from './services/auth.service';
-
+import { BlogService } from './services/blog.service';
 export function tokenGetter() {
   return localStorage.getItem('access_token');
 }
@@ -45,6 +45,7 @@ export function tokenGetter() {
   providers: [
     AuthService,
     AuthGuard,
+    BlogService,
     NotAuthGuard
   ],
   bootstrap: [AppComponent]

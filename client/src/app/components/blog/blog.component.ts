@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+
+import { AuthService } from '../../services/auth.service';
+import { BlogService } from '../../services/blog.service';
 
 @Component({
   selector: 'app-blog',
@@ -7,12 +11,95 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BlogComponent implements OnInit {
 
+  messageClass: string;
+  message: string;
   newPost: boolean = false;
+  username: string;
   loadingBlogs: boolean = false;
+  form;
+  processing: boolean = false;
 
-  constructor() { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private blogService: BlogService
+  ) {
+    this.createNewBlogForm();
+  }
 
   ngOnInit() {
+    // Get profile username on page load
+    this.authService.getProfile().subscribe(profile => {
+      this.username = profile.user.username; // Used when creating new blog posts and comments
+    });
+  }
+
+  createNewBlogForm() {
+    this.form = this.formBuilder.group({
+      title: ['', Validators.compose([
+        Validators.required,
+        Validators.maxLength(50),
+        Validators.minLength(5),
+        this.alphaNumericValidation
+      ])],
+      body: ['', Validators.compose([
+        Validators.required,
+        Validators.maxLength(500),
+        Validators.minLength(5)
+      ])]
+    });
+  }
+
+    // Enable new blog form
+    enableFormNewBlogForm() {
+      this.form.get('title').enable();
+      this.form.get('body').enable();
+    }
+    // Disable new blog form
+    disableFormNewBlogForm() {
+      this.form.get('title').disable();
+      this.form.get('body').disable();
+    }
+
+    onBlogSubmit() {
+      this.processing = true; // Disable submit button
+      this.disableFormNewBlogForm(); // Lock form
+      // Create blog object from the inputs
+      const blog = {
+        title: this.form.get('title').value, // taken from the form inputs
+        body: this.form.get('body').value,  // taken from the form inputs
+        createdBy: this.username  // taken from the auth service (see ngOnInit)
+      };
+
+      this.blogService.newBlog(blog).subscribe(data => {
+        if (!data.success) {
+          this.messageClass = 'alert alert-danger';
+          this.message = data.message;
+          this.processing = false;
+          this.enableFormNewBlogForm();
+        } else {
+            this.messageClass = 'alert alert-success';
+            this.message = data.message;
+            setTimeout(() => { // after 2 seconds...
+              this.newPost = false;
+              this.processing = false;
+              this.message = '';
+              this.form.reset();
+              this.enableFormNewBlogForm();
+            }, 2000);
+          }
+      });
+    }
+
+  // Validation for title <<<< TODO
+  alphaNumericValidation(controls) {
+    const regExp = new RegExp(/^[a-zA-Z0-9 ]+$/);
+    // Check if test returns false or true
+    if (regExp.test(controls.value)) {
+      return null; // Return valid
+    } else {
+      return { 'alphaNumericValidation': true };
+    }
   }
 
   newBlogForm() {
@@ -39,4 +126,7 @@ export class BlogComponent implements OnInit {
 
   }
 
+  goBack() {
+    window.location.reload();
+  }
 }
