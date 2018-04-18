@@ -23,11 +23,26 @@ h4 {
     margin-bottom: 0;
 }
 
+.card {
+    margin: 10px 0;
+}
+
 .card-title {
     margin-bottom: 0.25rem;
 }
 
+//////////////////////////
+/* Post Comments Button */
+//////////////////////////
+
+.list-group-item {
+    text-align: right;
+    padding: .5rem;
+}
+
+/////////////////////
 /* Dropdown Button */
+/////////////////////
 .dropbtn {
     background-color: #4CAF50;
     color: white;
@@ -73,3 +88,14 @@ h4 {
 .dropdown:hover .dropbtn {
     background-color: #3e8e41;
 }
+
+
+/////////////////////
+/* New Post Alerts */
+/////////////////////
+
+.help-block {
+    color: red;
+    font-style: italic;
+    list-style-type: none;
+};

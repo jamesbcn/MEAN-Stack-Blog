@@ -16,8 +16,9 @@ export class BlogComponent implements OnInit {
   newPost: boolean = false;
   username: string;
   loadingBlogs: boolean = false;
-  form;
+  form; // TODO
   processing: boolean = false;
+  blogPosts; // TODO // Array of blogs from blogService.getAllBlogs() to be iterated through
 
   constructor(
     private formBuilder: FormBuilder,
@@ -31,6 +32,9 @@ export class BlogComponent implements OnInit {
     // Get profile username on page load
     this.authService.getProfile().subscribe(profile => {
       this.username = profile.user.username; // Used when creating new blog posts and comments
+
+    this.getAllBlogs();
+
     });
   }
 
@@ -80,7 +84,9 @@ export class BlogComponent implements OnInit {
         } else {
             this.messageClass = 'alert alert-success';
             this.message = data.message;
-            setTimeout(() => { // after 2 seconds...
+            this.getAllBlogs(); // So any time a new blog post is posted it's going to display all
+            // Clear all data after 2 seconds...
+            setTimeout(() => {
               this.newPost = false;
               this.processing = false;
               this.message = '';
@@ -107,9 +113,9 @@ export class BlogComponent implements OnInit {
   }
 
   reloadBlogs() {
-    this.loadingBlogs = true;
-    this.loadingBlogs = true; // Used to lock button
+    this.loadingBlogs = true; // Locks button ti stop user hammering server
     this.getAllBlogs(); // Add any new blogs to the page
+
     setTimeout(() => {
       this.loadingBlogs = false; // Release button lock after four seconds
     }, 4000);
@@ -117,9 +123,9 @@ export class BlogComponent implements OnInit {
 
   getAllBlogs() {
     // Function to GET all blogs from database
-    // this.blogService.getAllBlogs().subscribe(data => {
-      // this.blogPosts = data.blogs; // Assign array to use in HTML
-    // })
+    this.blogService.getAllBlogs().subscribe(data => {
+      this.blogPosts = data.blogs; // Assign array to use in HTML
+    });
   }
 
   draftComment() {

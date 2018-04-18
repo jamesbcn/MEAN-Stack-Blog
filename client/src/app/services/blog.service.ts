@@ -35,4 +35,9 @@ export class BlogService {
     // along with the options for the header.
   }
 
+  getAllBlogs() {
+    this.createAuthenticationHeaders();
+    return this.http.get(this.domain + 'blogs/allBlogs', this.options).map(res => res.json());
+  } // Function which is subscribed to in the blog component.
+
 }

@@ -1,13 +1,13 @@
 <div class="row">
-    <br />
+  <br />
   <div class="col-md-2"></div>
   <div class="col-md-8">
     <div class="buttons" style="text-align: right">
       <button class="btn bg-dark btn-sm text-white post" role="button" *ngIf="!newPost" (click)="newBlogForm()">New Post</button>
-      <button class="btn bg-secondary btn-sm text-white refresh" role="button"*ngIf="!newPost" (click)="reloadBlogs()"><i class="material-icons">refresh</i></button>
+      <button class="btn bg-secondary btn-sm text-white refresh" role="button" *ngIf="!newPost" (click)="reloadBlogs()">
+        <i class="material-icons">refresh</i>
+      </button>
     </div>
-    
-    <br />
 
     <div class="flash-message" [ngClass]="messageClass" *ngIf="message && newPost">
       {{ message }}
@@ -15,96 +15,103 @@
 
     <!-- New blog form -->
     <form [formGroup]="form" name="blogForm" (submit)="onBlogSubmit()" *ngIf="newPost">
-        <!-- Title Input -->
-        <div class="form-group">
-          <label for="title">Title</label>
-          <div [ngClass]="{'has-success': form.controls.title.valid, 'has-error': form.controls.title.dirty && form.controls.title.errors}">
-            <!-- Title Input -->
-            <input type="text" name="title" class="form-control" placeholder="*Blog Title" autocomplete="off" formControlName="title" />
-            <!-- Validation -->
-            <ul class="help-block">
-              <li *ngIf="form.controls.title.dirty && form.controls.title.errors?.required">This field is required.</li>
-              <li *ngIf="(form.controls.title.dirty && form.controls.title.errors?.minlength) || (form.controls.title.dirty && form.controls.title.errors?.maxlength)">Max length: 50, Min length: 5</li>
-              <li *ngIf="form.controls.title.dirty && form.controls.title.errors?.alphaNumericValidation">Must be a letter or number</li> <!-- TODO -->
-            </ul>
-          </div>
-        </div>  
-
-        <!-- Body Input -->
-        <div class="form-group">
-            <label for="body">Body</label>
-            <div [ngClass]="{'has-success': form.controls.body.valid, 'has-error': form.controls.body.dirty && form.controls.body.errors}">
-              <!-- Body Input -->
-              <textarea name="body" rows="8" cols="80" placeholder="*Body" class="form-control" formControlName="body"></textarea>
-              <!-- Validation -->
-              <ul class="help-block">
-                <li *ngIf="form.controls.body.dirty && form.controls.body.errors?.required">This field is required.</li>
-                <li *ngIf="(form.controls.body.dirty && form.controls.body.errors?.minlength) || (form.controls.body.dirty && form.controls.body.errors?.maxlength)">Max length: 500, Min length: 5</li>
-              </ul>
-            </div>
+      <!-- Title Input -->
+      <div class="form-group">
+        <label for="title">Title</label>
+        <div [ngClass]="{'has-success': form.controls.title.valid, 'has-error': form.controls.title.dirty && form.controls.title.errors}">
+          <!-- Title Input -->
+          <input type="text" name="title" class="form-control" placeholder="*Blog Title" autocomplete="off" formControlName="title"
+          />
+          <!-- Validation -->
+          <ul class="help-block">
+            <li *ngIf="form.controls.title.dirty && form.controls.title.errors?.required">This field is required.</li>
+            <li *ngIf="(form.controls.title.dirty && form.controls.title.errors?.minlength) || (form.controls.title.dirty && form.controls.title.errors?.maxlength)">Max length: 50, Min length: 5</li>
+            <li *ngIf="form.controls.title.dirty && form.controls.title.errors?.alphaNumericValidation">Must be a letter or number</li>
+            <!-- TODO -->
+          </ul>
         </div>
+      </div>
 
+      <!-- Body Input -->
+      <div class="form-group">
+        <label for="body">Body</label>
+        <div [ngClass]="{'has-success': form.controls.body.valid, 'has-error': form.controls.body.dirty && form.controls.body.errors}">
+          <!-- Body Input -->
+          <textarea name="body" rows="8" cols="80" placeholder="*Body" class="form-control" formControlName="body"></textarea>
+          <!-- Validation -->
+          <ul class="help-block">
+            <li *ngIf="form.controls.body.dirty && form.controls.body.errors?.required">This field is required.</li>
+            <li *ngIf="(form.controls.body.dirty && form.controls.body.errors?.minlength) || (form.controls.body.dirty && form.controls.body.errors?.maxlength)">Max length: 500, Min length: 5</li>
+          </ul>
+        </div>
+      </div>
 
-  <button [disabled]="processing" type="button" name="button" (click)="goBack()" class="btn btn-warning">Go Back</button>
-  <button [disabled]="processing || !form.valid" type="submit" name="button" class="btn btn-success">Submit</button>
+      <button [disabled]="processing" type="button" name="button" (click)="goBack()" class="btn btn-warning">Go Back</button>
+      <button [disabled]="processing || !form.valid" type="submit" name="button" class="btn btn-success">Submit</button>
 
     </form>
+    <!-- End New blog form -->
 
-    <!-- New post -->
+    <!-- Blog post -->
     <div *ngIf="!newPost">
-      <div class="card">
+      <div class="card" *ngFor="let i of blogPosts">
         <div class="card-header">
-          <h4 class="card-title">Post Title</h4>
+          <h4 class="card-title">{{ i.title }}</h4>
         </div>
         <div class="card-body">
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+          {{ i.body }}
         </div>
         <div class="card-footer text-muted">
-          <strong>Posted by: </strong>James ......
-          <strong>Date: </strong>21st July 2018
+          <strong>Posted by: </strong>{{i.createdBy}} ......
+          <strong>Date: </strong>{{ i.createdAt | date:'dd MMM, yyyy'}}
           <br />
-          <strong>Likes: </strong>12
-          <strong>Dislikes: </strong>12
-          <button class="btn btn-info btn-sm text-white" *ngIf="!newPost" (click)="newBlogForm()">Edit</button>
-          <button class="btn btn-danger btn-sm text-white" *ngIf="!newPost" (click)="reloadBlogs()">Delete</button>
+          <strong>Likes: </strong>{{i.likes}}
+          <strong>Dislikes: </strong>{{i.dislikes}}
+          <button [routerLink]="['/edit-blog/', i._id]" class="btn btn-info btn-sm text-white" *ngIf="!newPost && username === i.createdBy">Edit</button>
+          <button [routerLink]="['/delete-blog/', i._id]" class="btn btn-danger btn-sm text-white" *ngIf="!newPost && username === i.createdBy">Delete</button>
+          <!-- Likes dropdown -->
           <div class="dropdown">
-              <a class="btn btn-success btn-sm text-white refresh" role="button"*ngIf="!newPost" (click)="reloadBlogs()">
-                  <i class="material-icons">thumb_up</i>
-              </a>
-              <div class="dropdown-content">
-                <a href="#">Marcos</a>
-                <a href="#">Julia</a>
-                <a href="#">Marlena</a>
-              </div>
+            <a class="btn btn-success btn-sm text-white refresh" role="button" *ngIf="!newPost && username !== i.createdBy" (click)="reloadBlogs()">
+              <i class="material-icons">thumb_up</i>
+            </a>
+            <div class="dropdown-content">
+              <a href="#">Marcos</a>
+              <a href="#">Julia</a>
+              <a href="#">Marlena</a>
+            </div>
           </div>
           <!-- Likes dropdown end -->
+          <!-- Dislikes dropdown // TODO refresh-->
           <div class="dropdown">
-              <button class="btn btn-warning btn-sm text-white refresh" *ngIf="!newPost" (click)="reloadBlogs()">
-                  <i class="material-icons">thumb_down</i>
-              </button>
-              <div class="dropdown-content">
-                <a href="#">Gordon</a>
-                <a href="#">Caolan</a>
-                <a href="#">Elita</a>
-              </div>
+            <button class="btn btn-warning btn-sm text-white refresh" *ngIf="!newPost && username !== i.createdBy" (click)="reloadBlogs()">
+              <i class="material-icons">thumb_down</i>
+            </button>
+            <div class="dropdown-content">
+              <a href="#">Gordon</a>
+              <a href="#">Caolan</a>
+              <a href="#">Elita</a>
+            </div>
           </div>
           <!-- Disikes dropdown end -->
-        </div> 
+        </div>
         <!-- footer end -->
         <ul class="list-group">
-            <li class="list-group-item">
-                <button class="btn btn-dark btn-sm text-white" (click)="draftComment()">Post Comment</button>
-                <br />
-                <!--
+          <li class="list-group-item">
+            <button class="btn btn-dark btn-sm text-white" (click)="draftComment()">Post Comment</button>
+            <br />
+            <!--
                 <form [formGroup]="">
                     <textarea name="comment" class="form-control" cols="1000" rows="4"></textarea>
                     <button class="btn bg-secondary btn-sm text-white">Submit</button>
                     <button class="btn bg-danger btn-sm text-white">Cancel</button>
                 </form>
               -->
-            </li>
+          </li>
         </ul>
-      </div> <!-- card -->
-    </div> <!-- New post -->
-  </div> <!-- col-md-8 -->
+      </div>
+      <!-- card -->
+    </div>
+    <!-- Blog post end -->
+  </div>
+  <!-- col-md-8 -->
 </div>
