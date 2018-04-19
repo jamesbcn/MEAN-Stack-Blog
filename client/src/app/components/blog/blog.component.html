@@ -9,8 +9,10 @@
       </button>
     </div>
 
-    <div class="flash-message" [ngClass]="messageClass" *ngIf="message && newPost">
-      {{ message }}
+    <div class="flash-message" *ngIf="message && newPost">
+      <div [ngClass]="messageClass">
+          {{ message }}
+      </div>
     </div>
 
     <!-- New blog form -->
@@ -71,9 +73,9 @@
           <button [routerLink]="['/delete-blog/', i._id]" class="btn btn-danger btn-sm text-white" *ngIf="!newPost && username === i.createdBy">Delete</button>
           <!-- Likes dropdown -->
           <div class="dropdown">
-            <a class="btn btn-success btn-sm text-white refresh" role="button" *ngIf="!newPost && username !== i.createdBy" (click)="reloadBlogs()">
+            <button class="btn btn-success btn-sm text-white refresh" role="button" *ngIf="!newPost && username !== i.createdBy" (click)="reloadBlogs()">
               <i class="material-icons">thumb_up</i>
-            </a>
+            </button>
             <div class="dropdown-content">
               <a href="#">Marcos</a>
               <a href="#">Julia</a>

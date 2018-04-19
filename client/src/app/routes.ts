@@ -5,6 +5,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { BlogComponent } from './components/blog/blog.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
+import { BlogEditComponent } from './components/blog/blog-edit/blog-edit.component';
 
 import { AuthGuard } from './services/auth-guard.service';
 import { NotAuthGuard } from './services/not-auth-guard.service';
@@ -28,6 +29,11 @@ export const routes: Routes = [
     {
         path: 'blog',
         component: BlogComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'edit-blog/:id',
+        component: BlogEditComponent,
         canActivate: [AuthGuard]
     },
     {

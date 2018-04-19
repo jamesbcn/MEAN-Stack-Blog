@@ -11,8 +11,8 @@ import { BlogService } from '../../services/blog.service';
 })
 export class BlogComponent implements OnInit {
 
-  messageClass: string;
   message: string;
+  messageClass: string;
   newPost: boolean = false;
   username: string;
   loadingBlogs: boolean = false;
