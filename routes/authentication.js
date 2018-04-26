@@ -150,7 +150,7 @@ module.exports = (router) => {
 
   /* ================================================
   MIDDLEWARE - Used to grab user's token from headers
-  ================================================ *
+  ================================================ */
   router.use((req, res, next) => {
     const token = req.headers['authorization']; // Create token found in headers
     // Check if token was found in headers
