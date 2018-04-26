@@ -77,9 +77,9 @@ module.exports = (router) => {
                 res.json({ success: false, message: 'Not a valid blog ID.'});
               } else {
                 if (!blogId) {
-                  res.json({ success: false, message: 'Blog Id not found.'});
+                  res.json({ success: false, message: 'Blog ID not found.'});
                 } else {
-                  res.json({ success: true, blog: blogId });
+                  res.json({ success: true, post: blogId });
                 }
               }
             })
