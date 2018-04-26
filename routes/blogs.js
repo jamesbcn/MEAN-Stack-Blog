@@ -67,6 +67,24 @@ module.exports = (router) => {
   });
 
 
+  router.get('/singleBlog/:id', (req, res) => {
+
+    if (!req.params.id) {
+      res.json({ success: false, message: 'No blog ID was provided.' })
+    } else {
+            Blog.findOne( { _id: req.params.id }, (err, blogId) => {
+              if (err) {
+                res.json({ success: false, message: 'Not a valid blog ID.'});
+              } else {
+                if (!blogId) {
+                  res.json({ success: false, message: 'Blog Id not found.'});
+                } else {
+                  res.json({ success: true, blog: blogId });
+                }
+              }
+            })
+    }
+  });
 
   return router; // Return router object to main index.js
 }
