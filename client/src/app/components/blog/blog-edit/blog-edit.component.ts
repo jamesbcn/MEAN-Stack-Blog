@@ -12,10 +12,7 @@ export class BlogEditComponent implements OnInit {
 
   message: string;
   messageClass: string;
-  post = {
-    title: String,
-    body: String
-    };
+  post;
   processing: boolean = false;
   currentUrl;
   loading: boolean = true;

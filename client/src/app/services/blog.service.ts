@@ -38,7 +38,7 @@ export class BlogService {
   getAllBlogs() {
     this.createAuthenticationHeaders();
     return this.http.get(this.domain + 'blogs/allBlogs', this.options).map(res => res.json());
-  } // Function which is subscribed to in the blog component.
+  }
 
   getSingleBlog(id) {
     this.createAuthenticationHeaders();
@@ -48,5 +48,10 @@ export class BlogService {
   editBlog(post) {
     this.createAuthenticationHeaders();
     return this.http.put(this.domain + 'blogs/updateBlog/', post, this.options).map(res => res.json());
+  }
+
+  deleteBlog(id) {
+    this.createAuthenticationHeaders();
+    return this.http.delete(this.domain + 'blogs/deleteBlog/' + id, this.options).map(res => res.json());
   }
 }

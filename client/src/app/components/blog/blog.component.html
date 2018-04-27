@@ -3,26 +3,30 @@
   <div class="col-md-2"></div>
   <div class="col-md-8">
     <div class="buttons" style="text-align: right">
-      <button class="btn bg-dark btn-sm text-white post" role="button" *ngIf="!newPost" (click)="newBlogForm()">New Post</button>
-      <button class="btn bg-secondary btn-sm text-white refresh" role="button" *ngIf="!newPost" (click)="reloadBlogs()">
+      <button class="btn bg-dark btn-sm text-white post" *ngIf="!newPost" (click)="newBlogForm()">New Post</button>
+      <button class="btn bg-secondary btn-sm text-white refresh" *ngIf="!newPost" [disabled]="loadingBlogs" (click)="reloadBlogs()">
         <i class="material-icons">refresh</i>
       </button>
     </div>
 
-    <div class="flash-message" *ngIf="message && newPost">
-      <div [ngClass]="messageClass">
-          {{ message }}
-      </div>
-    </div>
-
     <!-- New blog form -->
     <form [formGroup]="form" name="blogForm" (submit)="onBlogSubmit()" *ngIf="newPost">
+        <h2>New Post</h2>
+        
+        <hr>
+
+        <div class="flash-message" *ngIf="message && newPost">
+            <div [ngClass]="messageClass">
+                {{ message }}
+            </div>
+        </div>
+
       <!-- Title Input -->
       <div class="form-group">
         <label for="title">Title</label>
         <div [ngClass]="{'has-success': form.controls.title.valid, 'has-error': form.controls.title.dirty && form.controls.title.errors}">
           <!-- Title Input -->
-          <input type="text" name="title" class="form-control" placeholder="*Blog Title" autocomplete="off" formControlName="title"
+          <input type="text" name="title" class="form-control" autocomplete="off" formControlName="title"
           />
           <!-- Validation -->
           <ul class="help-block">
@@ -39,7 +43,7 @@
         <label for="body">Body</label>
         <div [ngClass]="{'has-success': form.controls.body.valid, 'has-error': form.controls.body.dirty && form.controls.body.errors}">
           <!-- Body Input -->
-          <textarea name="body" rows="8" cols="80" placeholder="*Body" class="form-control" formControlName="body"></textarea>
+          <textarea name="body" rows="8" cols="80" class="form-control" formControlName="body"></textarea>
           <!-- Validation -->
           <ul class="help-block">
             <li *ngIf="form.controls.body.dirty && form.controls.body.errors?.required">This field is required.</li>

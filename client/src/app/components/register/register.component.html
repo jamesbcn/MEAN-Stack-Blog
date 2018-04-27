@@ -29,14 +29,14 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4" [ngClass]="{'error': (form.controls.username.errors && form.controls.username.dirty) || (!usernameValid && form.controls.username.dirty), 'success': !form.controls.username.errors && usernameValid}">
-                <div *ngIf="form.controls.username.errors?.required && form.controls.username.dirty">
+            <div class="col-md-4" [ngClass]="{'error': (form.controls['username'].errors && form.controls['username'].dirty) || (!usernameValid && form.controls['username'].dirty), 'success': !form.controls['username'].errors && usernameValid}">
+                <div *ngIf="form.controls['username'].errors?.required && form.controls['username'].dirty">
                     {{ alert }}
                 </div>
-                <div *ngIf="(form.controls.username.errors?.minlength || form.controls.username.errors?.maxlength) && form.controls.username.dirty">
+                <div *ngIf="(form.controls['username'].errors?.minlength || form.controls['username'].errors?.maxlength) && form.controls['username'].dirty">
                     Minimum length: 3, Maximum length: 15 
                 </div>
-                <div *ngIf="form.controls.username.errors?.validateUsername && form.controls.username.dirty">
+                <div *ngIf="form.controls['username'].errors?.validateUsername && form.controls['username'].dirty">
                     Username must not have any special characters
                 </div>
                 <div *ngIf="usernameMessage && usernameValid">
@@ -62,14 +62,14 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4" [ngClass]="{'error': (form.controls.email.errors && form.controls.email.dirty) || (!emailValid && form.controls.email.dirty), 'success': !form.controls.email.errors && emailValid}">
-                <div *ngIf="form.controls.email.errors?.required && form.controls.email.dirty">
+            <div class="col-md-4" [ngClass]="{'error': (form.controls['email'].errors && form.controls['email'].dirty) || (!emailValid && form.controls['email'].dirty), 'success': !form.controls['email'].errors && emailValid}">
+                <div *ngIf="form.controls['email'].errors?.required && form.controls['email'].dirty">
                         {{ alert }}
                 </div>
-                <div *ngIf="(form.controls.email.errors?.minlength || form.controls.email.errors?.maxlength) && form.controls.email.dirty">
+                <div *ngIf="(form.controls['email'].errors?.minlength || form.controls['email'].errors?.maxlength) && form.controls['email'].dirty">
                     Minimum length: 5, Maximum length: 30
                 </div>
-                <div *ngIf="form.controls.email.errors?.validateEmail && form.controls.email.dirty">
+                <div *ngIf="form.controls['email'].errors?.validateEmail && form.controls['email'].dirty">
                     Must be a valid email
                 </div>
                 <div *ngIf="emailMessage && emailValid">
@@ -94,14 +94,14 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4" [ngClass]="{'error': (form.controls.password.errors && form.controls.password.dirty), 'success': !form.controls.password.errors}">
-                <div *ngIf="form.controls.password.errors?.required && form.controls.password.dirty">
+            <div class="col-md-4" [ngClass]="{'error': (form.controls['password'].errors && form.controls['password'].dirty), 'success': !form.controls['password'].errors}">
+                <div *ngIf="form.controls['password'].errors?.required && form.controls['password'].dirty">
                         {{ alert }}
                 </div>
-                <div *ngIf="(form.controls.password.errors?.minlength || form.controls.password.errors?.maxlength) && form.controls.password.dirty">
+                <div *ngIf="(form.controls['password'].errors?.minlength || form.controls['password'].errors?.maxlength) && form.controls['password'].dirty">
                     Minimum length: 8, Maximum length: 35 
                 </div>
-                <div *ngIf="form.controls.password.errors?.validatePassword && form.controls.password.dirty">
+                <div *ngIf="form.controls['password'].errors?.validatePassword && form.controls['password'].dirty">
                     Must have at least one uppercase, lowercase, special character, and number
                 </div>
             </div>
@@ -119,11 +119,11 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4" [ngClass]="{'error': (form.controls.confirm.errors && form.controls.confirm.dirty) || (form.errors?.matchingPasswords && form.controls.confirm.dirty), 'success': !form.controls.confirm.errors && !form.errors?.matchingPasswords}">
-                <div *ngIf="form.controls.confirm.errors?.required && form.controls.confirm.dirty">
+            <div class="col-md-4" [ngClass]="{'error': (form.controls.confirm.errors && form.controls.confirm.dirty) || (form.errors?.matchingPasswords && form.controls['confirm'].dirty), 'success': !form.controls['confirm'].errors && !form.errors?.matchingPasswords}">
+                <div *ngIf="form.controls['confirm'].errors?.required && form.controls['confirm'].dirty">
                         {{ alert }}
                 </div>
-                <div *ngIf="form.errors?.matchingPasswords && form.controls.confirm.dirty && form.controls.password.dirty">
+                <div *ngIf="form['errors?'].matchingPasswords && form.controls['confirm'].dirty && form.controls['password'].dirty">
                     Passwords do not match
                 </div>
             </div>

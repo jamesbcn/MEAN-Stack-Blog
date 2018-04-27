@@ -1,0 +1,70 @@
+<div>
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+
+      <h2>Delete Post</h2>
+
+      <hr>
+
+      <!-- Custom Success/Error Message -->
+      <div class="flash-message">
+          <div *ngIf="message">
+              <div [ngClass]="messageClass">
+                {{ message }}
+              </div>
+          </div>
+      </div>
+
+      <!-- Modal Confirmation Window -->
+      <div *ngIf="foundBlogPost">
+        <!-- Model Outer Layer -->
+        <div class="modal-content">
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <!-- Modal Title -->
+            <h4 class="modal-title">Confirm</h4>
+          </div>
+
+          <!-- Modal Body -->
+          <div class="modal-body">
+            <p>Are you sure you would like to delete this post?</p>
+          </div>
+
+          <!-- Modal Footer -->
+          <div class="modal-footer">
+            <!-- Yes Button -->
+            <button [disabled]="processing" type="button" name="button" class="btn btn-success" (click)="deleteBlog()">Yes</button>
+            <!-- No Button -->
+            <a routerLink="/blog">
+              <button [disabled]="processing" type="button" name="button" class="btn btn-danger">No</button>
+            </a>
+          </div>
+        </div>
+
+        <br />
+
+        <!-- Panel -->
+        <div class="card">
+          <!-- Panel Heading -->
+          <div class="card-header">
+            <!-- Panel Title -->
+            <h3 class="card-title">{{ post.title }}</h3>
+          </div>
+
+          <!-- Panel Body -->
+          <div class="card-body">
+            {{ post.body }}
+          </div>
+
+          <!-- Panel Footer -->
+          <div class="card-footer">
+            <strong>Posted by: </strong> {{ post.createdBy }}
+            <br />
+            <strong>Date: </strong> {{ post.createdAt | date:'MMM dd, yyyy' }}
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
