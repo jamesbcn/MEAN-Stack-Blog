@@ -46,7 +46,7 @@ module.exports = (router) => {
   });
 
    /* ===============================================================
-     GET ALL BLOGS
+     GET ALL BLOG POSTS
   =============================================================== */
   router.get('/allBlogs', (req, res) => {
     // Search database for all blog posts using Blog model
@@ -67,22 +67,83 @@ module.exports = (router) => {
   });
 
 
+  /* ===============================================================
+     GET SINGLE BLOG POST
+  =============================================================== */
   router.get('/singleBlog/:id', (req, res) => {
 
     if (!req.params.id) {
-      res.json({ success: false, message: 'No blog ID was provided.' })
+      res.json({ success: false, message: 'No blog ID was provided' })
     } else {
             Blog.findOne( { _id: req.params.id }, (err, blogId) => {
               if (err) {
-                res.json({ success: false, message: 'Not a valid blog ID.'});
+                res.json({ success: false, message: 'Not a valid blog ID'});
               } else {
                 if (!blogId) {
-                  res.json({ success: false, message: 'Blog ID not found.'});
+                  res.json({ success: false, message: 'Blog ID not found'});
                 } else {
-                  res.json({ success: true, post: blogId });
-                }
+                    User.findOne({_id: req.decoded.userId }, (err, user) => {
+                      if (err) {
+                        res.json({ success: false, message: err });
+                      } else {
+                            if (!user) {
+                              res.json({ success: false, message: 'Unable to authenticate user'});
+                            } else {
+                                if(user.username !== blogId.createdBy) {
+                                  res.json({ success: false, message: 'You are not authorized to edit this blog post.'});
+                                } else {
+                                    res.json({ success: true, post: blogId });
+                                  }
+                              }
+                        }
+                    });
+                  }
               }
-            })
+            });
+    }
+  });
+
+  /* ===============================================================
+     UPDATE SINGLE BLOG POST
+  =============================================================== */
+  router.put('/updateBlog', (req, res) => {
+    if (!req.body._id) {
+      res.json({ success: false, message: 'No blog ID provided'});
+    } else {
+      Blog.findOne({ _id: req.body._id }, (err, post) => {
+        if (err) {
+          res.json({ success: false, message: 'Not a valid blog ID' } );
+        } else {
+            if (!post) {
+              res.json({ success: false, message: 'Blog ID was not found' } );
+            } else {
+                // We now want to verify that the user is the author of the post
+                User.findOne({ _id: req.decoded.userId }, (err, user) => {
+                  if (err) {
+                    res.json({ success: false, message: err } );
+                  } else {
+                      if (!user) {
+                        res.json({ success: false, message: 'Unable to authenticate user'});
+                      } else {
+                          if (user.username !== post.createdBy) {
+                            res.json({ success: false, message: 'You are not authorized to edit this blog post'});
+                          } else {
+                              post.title = req.body.title;
+                              post.body = req.body.body;
+                              post.save((err) => {
+                                if (err) {
+                                  res.json({ success: false, message: err});
+                                } else {
+                                  res.json({ success: true, message: 'Blog post updated!'});
+                                }
+                              });
+                            }
+                      }
+                    }
+                });
+            }
+          }
+      });
     }
   });
 
