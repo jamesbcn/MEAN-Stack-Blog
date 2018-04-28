@@ -16,9 +16,9 @@ export class BlogComponent implements OnInit {
   newPost: boolean = false;
   username: string;
   loadingBlogs: boolean = false;
-  form; // TODO
+  form;
   processing: boolean = false;
-  blogPosts; // TODO // Array of blogs from blogService.getAllBlogs() to be iterated through
+  blogPosts; // Array of blogs from blogService.getAllBlogs() to be iterated through
 
   constructor(
     private formBuilder: FormBuilder,
@@ -33,7 +33,7 @@ export class BlogComponent implements OnInit {
     this.authService.getProfile().subscribe(profile => {
       this.username = profile.user.username; // Used when creating new blog posts and comments
 
-    this.getAllBlogs();
+      this.getAllBlogs();
 
     });
   }
@@ -54,50 +54,50 @@ export class BlogComponent implements OnInit {
     });
   }
 
-    // Enable new blog form
-    enableFormNewBlogForm() {
-      this.form.get('title').enable();
-      this.form.get('body').enable();
-    }
-    // Disable new blog form
-    disableFormNewBlogForm() {
-      this.form.get('title').disable();
-      this.form.get('body').disable();
-    }
+  // Enable new blog form
+  enableFormNewBlogForm() {
+    this.form.get('title').enable();
+    this.form.get('body').enable();
+  }
+  // Disable new blog form
+  disableFormNewBlogForm() {
+    this.form.get('title').disable();
+    this.form.get('body').disable();
+  }
 
-    onBlogSubmit() {
-      this.processing = true; // Disable submit button
-      this.disableFormNewBlogForm(); // Lock form
-      // Create blog object from the inputs
-      const blog = {
-        title: this.form.get('title').value, // taken from the form inputs
-        body: this.form.get('body').value,  // taken from the form inputs
-        createdBy: this.username  // taken from the auth service (see ngOnInit)
-      };
+  onBlogSubmit() {
+    this.processing = true; // Disable submit button
+    this.disableFormNewBlogForm(); // Lock form
+    // Create blog object from the inputs
+    const blog = {
+      title: this.form.get('title').value, // taken from the form inputs
+      body: this.form.get('body').value,  // taken from the form inputs
+      createdBy: this.username  // taken from the auth service (see ngOnInit)
+    };
 
-      this.blogService.newBlog(blog).subscribe(data => {
-        if (!data.success) {
-          this.messageClass = 'alert alert-danger';
-          this.message = data.message;
+    this.blogService.newBlog(blog).subscribe(data => {
+      if (!data.success) {
+        this.messageClass = 'alert alert-danger';
+        this.message = data.message;
+        this.processing = false;
+        this.enableFormNewBlogForm();
+      } else {
+        this.messageClass = 'alert alert-success';
+        this.message = data.message;
+        this.getAllBlogs(); // So any time a new blog post is posted it's going to display all
+        // Clear all data after 2 seconds...
+        setTimeout(() => {
+          this.newPost = false;
           this.processing = false;
+          this.message = '';
+          this.form.reset();
           this.enableFormNewBlogForm();
-        } else {
-            this.messageClass = 'alert alert-success';
-            this.message = data.message;
-            this.getAllBlogs(); // So any time a new blog post is posted it's going to display all
-            // Clear all data after 2 seconds...
-            setTimeout(() => {
-              this.newPost = false;
-              this.processing = false;
-              this.message = '';
-              this.form.reset();
-              this.enableFormNewBlogForm();
-            }, 2000);
-          }
-      });
-    }
+        }, 2000);
+      }
+    });
+  }
 
-  // Validation for title <<<< TODO
+  // Validation for blog post title
   alphaNumericValidation(controls) {
     const regExp = new RegExp(/^[a-zA-Z0-9 ]+$/);
     // Check if test returns false or true
@@ -113,8 +113,8 @@ export class BlogComponent implements OnInit {
   }
 
   reloadBlogs() {
-    this.loadingBlogs = true; // Locks button ti stop user hammering server
-    this.getAllBlogs(); // Add any new blogs to the page
+    this.loadingBlogs = true; // Locks button to stop user hammering server
+    this.getAllBlogs(); // Add any new blog posts to the page
 
     setTimeout(() => {
       this.loadingBlogs = false; // Release button lock after four seconds
@@ -125,6 +125,22 @@ export class BlogComponent implements OnInit {
     // Function to GET all blogs from database
     this.blogService.getAllBlogs().subscribe(data => {
       this.blogPosts = data.blogs; // Assign array to use in HTML
+    });
+  }
+
+  // Function to like a blog post
+  likeBlog(id) {
+    // Service to like a blog post
+    this.blogService.likeBlog(id).subscribe(data => {
+      this.getAllBlogs(); // Refresh blogs after like
+    });
+  }
+
+  // Function to disliked a blog post
+  dislikeBlog(id) {
+    // Service to dislike a blog post
+    this.blogService.dislikeBlog(id).subscribe(data => {
+      this.getAllBlogs(); // Refresh blogs after dislike
     });
   }
 

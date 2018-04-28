@@ -77,7 +77,7 @@
           <button [routerLink]="['/delete-blog/', i._id]" class="btn btn-danger btn-sm text-white" *ngIf="!newPost && username === i.createdBy">Delete</button>
           <!-- Likes dropdown -->
           <div class="dropdown">
-            <button class="btn btn-success btn-sm text-white refresh" role="button" *ngIf="!newPost && username !== i.createdBy" (click)="reloadBlogs()">
+            <button class="btn btn-success btn-sm text-white liked" [disabled]="i.likedBy.indexOf(username) > -1" *ngIf="!newPost && username !== i.createdBy" (click)="likeBlog(i._id)">
               <i class="material-icons">thumb_up</i>
             </button>
             <div class="dropdown-content">
@@ -87,9 +87,9 @@
             </div>
           </div>
           <!-- Likes dropdown end -->
-          <!-- Dislikes dropdown // TODO refresh-->
+          <!-- Dislikes dropdown -->
           <div class="dropdown">
-            <button class="btn btn-warning btn-sm text-white refresh" *ngIf="!newPost && username !== i.createdBy" (click)="reloadBlogs()">
+            <button class="btn btn-warning btn-sm text-white disliked" [disabled]="i.dislikedBy.indexOf(username) > -1" *ngIf="!newPost && username !== i.createdBy" (click)="dislikeBlog(i._id)">
               <i class="material-icons">thumb_down</i>
             </button>
             <div class="dropdown-content">
