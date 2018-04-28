@@ -123,7 +123,7 @@
                 <div *ngIf="form.controls['confirm'].errors?.required && form.controls['confirm'].dirty">
                         {{ alert }}
                 </div>
-                <div *ngIf="form['errors?'].matchingPasswords && form.controls['confirm'].dirty && form.controls['password'].dirty">
+                <div *ngIf="!!form.errors?.matchingPasswords && form.controls['confirm'].dirty && form.controls['password'].dirty">
                     Passwords do not match
                 </div>
             </div>

@@ -81,9 +81,7 @@
               <i class="material-icons">thumb_up</i>
             </button>
             <div class="dropdown-content">
-              <a href="#">Marcos</a>
-              <a href="#">Julia</a>
-              <a href="#">Marlena</a>
+              <a *ngFor="let liker of i.likedBy" [routerLink]="['/user/', liker]">{{ liker }}</a>
             </div>
           </div>
           <!-- Likes dropdown end -->
@@ -93,9 +91,7 @@
               <i class="material-icons">thumb_down</i>
             </button>
             <div class="dropdown-content">
-              <a href="#">Gordon</a>
-              <a href="#">Caolan</a>
-              <a href="#">Elita</a>
+                <a *ngFor="let disliker of i.dislikedBy" [routerLink]="['/user/', disliker]">{{ disliker }}</a>
             </div>
           </div>
           <!-- Disikes dropdown end -->

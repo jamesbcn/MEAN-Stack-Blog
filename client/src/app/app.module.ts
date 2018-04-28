@@ -23,6 +23,7 @@ import { AuthService } from './services/auth.service';
 import { BlogService } from './services/blog.service';
 import { BlogEditComponent } from './components/blog/blog-edit/blog-edit.component';
 import { DeleteBlogComponent } from './components/blog/delete-blog/delete-blog.component';
+import { PublicProfileComponent } from './components/public-profile/public-profile.component';
 export function tokenGetter() {
   return localStorage.getItem('access_token');
 }
@@ -38,7 +39,8 @@ export function tokenGetter() {
     RegisterComponent,
     LoginComponent,
     BlogEditComponent,
-    DeleteBlogComponent
+    DeleteBlogComponent,
+    PublicProfileComponent
   ],
   imports: [
     BrowserModule,
