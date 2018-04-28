@@ -5,29 +5,28 @@
     <div class="buttons" style="text-align: right">
       <button class="btn bg-dark btn-sm text-white post" *ngIf="!newPost" (click)="newBlogForm()">New Post</button>
       <button class="btn bg-secondary btn-sm text-white refresh" *ngIf="!newPost" [disabled]="loadingBlogs" (click)="reloadBlogs()">
-        <i class="material-icons">refresh</i>
+        <i class="material-icons refresh-icon">refresh</i>
       </button>
     </div>
 
     <!-- New blog form -->
     <form [formGroup]="form" name="blogForm" (submit)="onBlogSubmit()" *ngIf="newPost">
-        <h2>New Post</h2>
-        
-        <hr>
+      <h2>New Post</h2>
 
-        <div class="flash-message" *ngIf="message && newPost">
-            <div [ngClass]="messageClass">
-                {{ message }}
-            </div>
+      <hr>
+
+      <div class="flash-message" *ngIf="message && newPost">
+        <div [ngClass]="messageClass">
+          {{ message }}
         </div>
+      </div>
 
       <!-- Title Input -->
       <div class="form-group">
         <label for="title">Title</label>
         <div [ngClass]="{'has-success': form.controls.title.valid, 'has-error': form.controls.title.dirty && form.controls.title.errors}">
           <!-- Title Input -->
-          <input type="text" name="title" class="form-control" autocomplete="off" formControlName="title"
-          />
+          <input type="text" name="title" class="form-control" autocomplete="off" formControlName="title" />
           <!-- Validation -->
           <ul class="help-block">
             <li *ngIf="form.controls.title.dirty && form.controls.title.errors?.required">This field is required.</li>
@@ -68,33 +67,45 @@
           {{ i.body }}
         </div>
         <div class="card-footer text-muted">
-          <strong>Posted by: </strong>{{i.createdBy}} ......
-          <strong>Date: </strong>{{ i.createdAt | date:'dd MMM, yyyy'}}
-          <br />
-          <strong>Likes: </strong>{{i.likes}}
-          <strong>Dislikes: </strong>{{i.dislikes}}
-          <button [routerLink]="['/edit-blog/', i._id]" class="btn btn-info btn-sm text-white" *ngIf="!newPost && username === i.createdBy">Edit</button>
-          <button [routerLink]="['/delete-blog/', i._id]" class="btn btn-danger btn-sm text-white" *ngIf="!newPost && username === i.createdBy">Delete</button>
-          <!-- Likes dropdown -->
-          <div class="dropdown">
-            <button class="btn btn-success btn-sm text-white liked" [disabled]="i.likedBy.indexOf(username) > -1" *ngIf="!newPost && username !== i.createdBy" (click)="likeBlog(i._id)">
-              <i class="material-icons">thumb_up</i>
-            </button>
-            <div class="dropdown-content">
-              <a *ngFor="let liker of i.likedBy" [routerLink]="['/user/', liker]">{{ liker }}</a>
+          <div class="row">
+            <div class="col-sm-4">
+              <strong>Posted by: </strong>{{i.createdBy}}
+              <br>
+              <strong>Date: </strong>{{ i.createdAt | date:'dd MMM, yyyy'}}
+            </div>
+            <div class="thumbs">
+              <!-- Likes dropdown -->
+              <div class="dropdown">
+                  <button class="btn btn-success btn-sm text-white liked" [disabled]="i.likedBy.indexOf(username) > -1" *ngIf="!newPost && username !== i.createdBy"
+                    (click)="likeBlog(i._id)">
+                    <i class="material-icons thumb-icons">thumb_up</i>
+                  </button>
+                  <div class="dropdown-content">
+                    <a *ngFor="let liker of i.likedBy" [routerLink]="['/user/', liker]">{{ liker }}</a>
+                  </div>
+                </div>
+                <!-- Likes dropdown end -->
+                <strong>Likes: </strong>{{i.likes}}
+              </div>
+            <div class="thumbs">
+              <!-- Dislikes dropdown -->
+              <div class="dropdown">
+                <button class="btn btn-warning btn-sm text-white disliked" [disabled]="i.dislikedBy.indexOf(username) > -1" *ngIf="!newPost && username !== i.createdBy"
+                  (click)="dislikeBlog(i._id)">
+                  <i class="material-icons thumb-icons">thumb_down</i>
+                </button>
+                <div class="dropdown-content">
+                  <a *ngFor="let disliker of i.dislikedBy" [routerLink]="['/user/', disliker]">{{ disliker }}</a>
+                </div>
+              </div>
+              <!-- Disikes dropdown end -->
+              <strong>Dislikes: </strong>{{i.dislikes}}
+            </div>
+            <div class="edit-del">
+                <button [routerLink]="['/edit-blog/', i._id]" class="btn btn-info btn-sm text-white" *ngIf="!newPost && username === i.createdBy">Edit</button>
+                <button [routerLink]="['/delete-blog/', i._id]" class="btn btn-danger btn-sm text-white" *ngIf="!newPost && username === i.createdBy">Delete</button>      
             </div>
           </div>
-          <!-- Likes dropdown end -->
-          <!-- Dislikes dropdown -->
-          <div class="dropdown">
-            <button class="btn btn-warning btn-sm text-white disliked" [disabled]="i.dislikedBy.indexOf(username) > -1" *ngIf="!newPost && username !== i.createdBy" (click)="dislikeBlog(i._id)">
-              <i class="material-icons">thumb_down</i>
-            </button>
-            <div class="dropdown-content">
-                <a *ngFor="let disliker of i.dislikedBy" [routerLink]="['/user/', disliker]">{{ disliker }}</a>
-            </div>
-          </div>
-          <!-- Disikes dropdown end -->
         </div>
         <!-- footer end -->
         <ul class="list-group">

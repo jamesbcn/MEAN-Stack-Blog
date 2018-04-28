@@ -9,14 +9,24 @@
     padding: .2rem .5rem .2rem .5rem;
 }
 
-.refresh, .liked, .disliked {
+.refresh {
     height: 31px;
     width: 35px;
     padding: .25rem .2rem;
 }
 
-.material-icons {
+.refresh-icon {
     font-size: 22px;
+}
+
+.liked, .disliked {
+    height: 23.25px;
+    width: 26.25px;
+    padding: .185rem .15rem;
+}
+
+.thumb-icons {
+    font-size: 16.5px;
 }
 
 h4 {
@@ -29,6 +39,25 @@ h4 {
 
 .card-title {
     margin-bottom: 0.25rem;
+}
+
+.card-footer {
+    font-size: 0.85rem;
+}
+
+.thumbs {
+    padding-top: 10px;
+    padding-right: 7.5px;
+}
+
+.row {
+    display: flex;
+}
+.edit-del {
+    flex-grow: 1;
+    text-align: right;
+    padding-right: 0.5rem;
+    padding-top: 6.5px;
 }
 
 //////////////////////////
