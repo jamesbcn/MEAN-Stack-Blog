@@ -1,8 +1,7 @@
 <div>
     <form [formGroup]="form" (submit)="onSubmit()">
         <div class="row">
-            <div class="col-md-4"></div>
-            <div class="col-md-4">
+            <div class="col-md-4 offset-md-4">
                 <h2>Register</h2>
                 <hr>
                 <!--
@@ -62,7 +61,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4" [ngClass]="{'error': (form.controls['email'].errors && form.controls['email'].dirty) || (!emailValid && form.controls['email'].dirty), 'success': !form.controls['email'].errors && emailValid}">
+            <div class="col-md-4" [ngClass]="{'error': (form.controls.email.errors && form.controls.email.dirty) || (!emailValid && form.controls.email.dirty), 'success': !form.controls['email'].errors && emailValid}">
                 <div *ngIf="form.controls['email'].errors?.required && form.controls['email'].dirty">
                         {{ alert }}
                 </div>

@@ -60,13 +60,33 @@ h4 {
     padding-top: 6px;
 }
 
-//////////////////////////
-/* Post Comments Button */
-//////////////////////////
 
-.list-group-item {
+// Post Comment Button 
+.post-comment {
     text-align: right;
     padding: .5rem;
+}
+
+// Show/Hide Comments
+.show-hide {
+    text-align: left;
+    font-size: 0.85rem;
+    color: #6c757d;
+    font-weight: bold;
+    padding: 0.75rem;
+    margin-top: 8px;
+}
+
+.comments-container {
+    padding-left: 0px;
+}
+
+.comment-area {
+    margin: 8px 0px !important;
+}
+
+.listed-comments {
+    text-align: left;
 }
 
 /////////////////////
@@ -81,13 +101,13 @@ h4 {
     cursor: pointer;
 }
 
-/* The container <div> - needed to position the dropdown content */
+// The container <div> - needed to position the dropdown content
 .dropdown {
     position: relative;
     display: inline-block;
 }
 
-/* Dropdown Content (Hidden by Default) */
+// Dropdown Content (Hidden by Default)
 .dropdown-content {
     display: none;
     position: absolute;
@@ -147,4 +167,10 @@ label {
 .form-control {
     background-color: whitesmoke;
     border: 2px dashed darkgrey;
+}
+
+
+// Comment icon
+.comment {
+    font-size: 1rem;
 }

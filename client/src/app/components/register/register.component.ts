@@ -144,7 +144,7 @@ export class RegisterComponent implements OnInit {
     // Function from authentication file to check if e-mail is taken
     this.authService.checkEmail(email).subscribe(data => {
 
-      if (!data.success) {
+      if (!data.success && data.message) {
         this.emailValid = false; // Return email as invalid in ng-If div
         this.emailMessage = data.message; // Return error message
         } else if (!this.form.controls.email.errors) {
