@@ -67,7 +67,7 @@
         <div class="card-footer text-muted">
           <div class="row">
             <div class="col-sm-4">
-              <strong>Posted by: </strong>{{i.createdBy}}
+              <strong>Posted by: </strong><a [routerLink]="['/user/', i.createdBy]">{{i.createdBy}}</a>
               <br>
               <strong>Date: </strong>{{ i.createdAt | date:'dd MMM, yyyy'}}
             </div>
