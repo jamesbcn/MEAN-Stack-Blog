@@ -9,12 +9,13 @@ const path = require('path');
 const authentication = require('./routes/authentication')(router);
 const blogs = require('./routes/blogs')(router);
 const bodyParser = require('body-parser');
+const port = process.env.PORT || 8080;
 
 // Middleware
 app.use(cors({origin: 'http://localhost:4200'}));
 app.use(bodyParser.urlencoded({ extended: false })); // parse x-www-form-urlencoded
 app.use(bodyParser.json()); // parse application/json
-app.use(express.static(__dirname + '/client/dist/')); // Provide static directory for frontend
+app.use(express.static(__dirname + '/public')); // Provide static directory for frontend
 app.use('/authentication', authentication);
 app.use('/blogs', blogs);
 
@@ -27,10 +28,10 @@ mongoose.connect(config.uri, (err)=>{
 app.use(express.static(__dirname + '/client/dist/')); // allows access to ng directory
 
 app.get('*', (req, res) => { // We only need one route for the server so we can use * instead of /
-    res.send(__dirname + '/client/dist/index.html');
+    res.send(__dirname + '/public/index.html');
   });
 
 // Start Server: Listen on port 8080
-app.listen(8080, () => {
-    console.log('Listening on port 8080');
+app.listen(port, () => {
+    console.log('Listening on port ' + port);
 });
