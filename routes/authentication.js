@@ -23,7 +23,7 @@ module.exports = (router) => {
           // Create new user object and apply user input
           let user = new User({
             email: req.body.email.toLowerCase(),
-            username: req.body.username.toLowerCase(),
+            username: req.body.username,
             password: req.body.password
           });
           // Save user to database
@@ -124,7 +124,7 @@ module.exports = (router) => {
           if (!req.body.password) {
             res.json({ success: false, message: 'No password was provided.' });
           } else {
-              User.findOne({ username: req.body.username.toLowerCase() }, (err, user) => {
+              User.findOne({ username: req.body.username }, (err, user) => {
                 if (err) {
                   res.json({success: false, message: err});
                 } else {
