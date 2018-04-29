@@ -60,6 +60,13 @@ h4 {
     padding-top: 6px;
 }
 
+a {
+    color: #6c757d;
+    text-decoration: none;
+    &:hover {
+        font-weight: bold;
+    }
+}
 
 // Post Comment Button 
 .post-comment {
