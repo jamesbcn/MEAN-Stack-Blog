@@ -84,6 +84,10 @@ a {
     margin-top: 8px;
 }
 
+.show-hide-click {
+    cursor: pointer;
+}
+
 .comments-container {
     padding-left: 0px;
 }
@@ -180,4 +184,26 @@ label {
 // Comment icon
 .comment {
     font-size: 1rem;
+}
+
+//////////////////////////
+/* Confirm Delete Alert */
+//////////////////////////
+
+::ng-deep .flash-delete-message {
+    text-align: center;
+    display: -webkit-inline-box;
+}
+
+.modal-body {
+    text-align: center;
+    padding: 1rem 1rem 0rem 1rem;
+}
+
+.delete-alert {
+    padding: 4px 20px;
+}
+
+.filler {
+    height: 1rem;
 }

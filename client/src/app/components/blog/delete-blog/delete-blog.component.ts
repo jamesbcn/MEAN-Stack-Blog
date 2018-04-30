@@ -23,17 +23,17 @@ export class DeleteBlogComponent implements OnInit {
 
   // Function to delete blogs
   deleteBlog() {
-    this.processing = true; // Disable buttons
+    this.processing = true;
+
     // Function for DELETE request
     this.blogService.deleteBlog(this.currentUrl.id).subscribe(data => {
-      // Check if delete request worked
       if (!data.success) {
-        this.messageClass = 'alert alert-danger'; // Return error bootstrap class
-        this.message = data.message; // Return error message
+        this.messageClass = 'alert alert-danger';
+        this.message = data.message;
       } else {
-        this.messageClass = 'alert alert-success'; // Return bootstrap success class
+        this.messageClass = 'alert alert-success';
         this.message = data.message; // Return success message
-        // After two second timeout, route to blog page
+ 
         setTimeout(() => {
           this.router.navigate(['/blog']); // Route users to blog page
         }, 2000);

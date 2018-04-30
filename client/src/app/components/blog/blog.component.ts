@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { AuthService } from '../../services/auth.service';
 import { BlogService } from '../../services/blog.service';
@@ -13,6 +14,8 @@ export class BlogComponent implements OnInit {
 
   message: string;
   messageClass: string;
+  deleteMessage: string = '';
+  deleteMessageClass: string = '';
   newPost: boolean = false;
   username: string;
   loadingBlogs: boolean = false;
@@ -24,6 +27,7 @@ export class BlogComponent implements OnInit {
   enabledComments = [];
 
   constructor(
+    private router: Router,
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private blogService: BlogService
@@ -123,7 +127,7 @@ export class BlogComponent implements OnInit {
     const regExp = new RegExp(/^[a-zA-Z0-9 ]+$/);
     // Check if test returns false or true
     if (regExp.test(controls.value)) {
-      return null; // Return valid
+      return null; // Return invalid
     } else {
       return { 'alphaNumericValidation': true };
     }
@@ -134,18 +138,42 @@ export class BlogComponent implements OnInit {
   }
 
   reloadBlogs() {
-    this.loadingBlogs = true; // Locks button to stop user hammering server
-    this.getAllBlogs(); // Add any new blog posts to the page
+    this.loadingBlogs = true;
+    this.getAllBlogs();
 
     setTimeout(() => {
-      this.loadingBlogs = false; // Release button lock after four seconds
+      this.loadingBlogs = false;
     }, 4000);
   }
 
   getAllBlogs() {
-    // Function to GET all blogs from database
     this.blogService.getAllBlogs().subscribe(data => {
-      this.blogPosts = data.blogs; // Assign array to use in HTML
+      this.blogPosts = data.blogs;
+    });
+  }
+
+  deleteBlogPost(id) {
+    console.log('ID: ' + id);
+
+    this.processing = true;
+    const dismiss: HTMLElement = document.getElementById('dismiss') as HTMLElement;
+
+    this.blogService.deleteBlog(id).subscribe(data => {
+      if (!data.success) {
+        this.deleteMessageClass = 'alert alert-danger';
+        this.deleteMessage = data.message;
+      } else {
+        this.deleteMessageClass = 'alert alert-success';
+        this.deleteMessage = data.message;
+
+        setTimeout(() => {
+          this.deleteMessageClass = '';
+          this.deleteMessage = '';
+          this.processing = false;
+          this.getAllBlogs();
+          dismiss.click();
+        }, 2000);
+      }
     });
   }
 
