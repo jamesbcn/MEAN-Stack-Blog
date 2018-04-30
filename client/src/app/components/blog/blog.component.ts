@@ -103,12 +103,14 @@ export class BlogComponent implements OnInit {
     this.blogService.newBlog(blog).subscribe(data => {
       if (!data.success) {
         this.messageClass = 'alert alert-danger';
-        this.message = data.message;
+        this.message = data.message.errmsg;
         this.processing = false;
+        console.log(this.message);
         this.enableFormNewBlogForm();
       } else {
         this.messageClass = 'alert alert-success';
         this.message = data.message;
+        console.log(this.message);
         this.getAllBlogs(); // So any time a new blog post is posted it's going to display all
         // Clear all data after 2 seconds...
         setTimeout(() => {
