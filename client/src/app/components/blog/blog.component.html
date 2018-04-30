@@ -10,7 +10,7 @@
 
     <!-- New blog form -->
     <form [formGroup]="form" name="blogForm" (submit)="onBlogSubmit()" *ngIf="newPost">
-      <h2>New Post</h2>
+      <h2 class="header">New Post</h2>
 
       <hr>
 
@@ -22,7 +22,7 @@
 
       <!-- Title Input -->
       <div class="form-group">
-        <label for="title">Title</label>
+        <label class="post-title" for="title">Title</label>
         <div [ngClass]="{'has-success': form.controls.title.valid, 'has-error': form.controls.title.dirty && form.controls.title.errors}">
           <!-- Title Input -->
           <input type="text" name="title" class="form-control" autocomplete="off" formControlName="title" />
@@ -37,7 +37,7 @@
 
       <!-- Body Input -->
       <div class="form-group">
-        <label for="body">Body</label>
+        <label class="post-body" for="body">Body</label>
         <div [ngClass]="{'has-success': form.controls.body.valid, 'has-error': form.controls.body.dirty && form.controls.body.errors}">
           <!-- Body Input -->
           <textarea name="body" rows="6" cols="30" class="form-control" formControlName="body"></textarea>
