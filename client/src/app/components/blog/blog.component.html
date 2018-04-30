@@ -1,7 +1,7 @@
 <div class="row">
   <br />
   <div class="col-md-8 offset-md-2">
-    <div class="buttons" style="text-align: right">
+    <div style="text-align: right">
       <button class="btn bg-dark btn-sm text-white post" *ngIf="!newPost" (click)="newBlogForm()">New Post</button>
       <button class="btn bg-secondary btn-sm text-white refresh" *ngIf="!newPost" [disabled]="loadingBlogs" (click)="reloadBlogs()">
         <i class="material-icons refresh-icon">refresh</i>
