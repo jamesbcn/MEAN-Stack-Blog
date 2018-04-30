@@ -121,8 +121,7 @@
                       </button>
                     </div>
                     <div class="modal-body">
-                      <div style="text-align: center">Are you sure you would like to delete this post?</div>
-                      <div *ngIf="!deleteMessage" class="filler"></div>
+                      <div *ngIf="!deleteMessage" class="delete-question">Are you sure you would like to delete this post?</div>
                       <div class="flash-delete-message" *ngIf="deleteMessage">
                         <div>
                           <div [ngClass]="deleteMessageClass" class="delete-alert">

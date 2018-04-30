@@ -192,7 +192,6 @@ label {
 
 ::ng-deep .flash-delete-message {
     text-align: center;
-    display: -webkit-inline-box;
 }
 
 .modal-body {
@@ -204,6 +203,7 @@ label {
     padding: 4px 20px;
 }
 
-.filler {
-    height: 1rem;
+.delete-question {
+    text-align: center;
+    height: 2rem;
 }
