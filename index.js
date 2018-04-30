@@ -21,12 +21,14 @@ mongoose.connect(config.uri, (err)=>{
 app.use(cors({origin: 'http://localhost:4200'}));
 app.use(bodyParser.urlencoded({ extended: false })); // parse x-www-form-urlencoded
 app.use(bodyParser.json()); // parse application/json
-app.use(express.static(__dirname + '/client/dist')); // Provide static directory for frontend. Change for build to /public
+//app.use(express.static(__dirname + '/client/dist')); // Provide static directory for frontend. Change for public to /public
+app.use(express.static(__dirname + '/public')); // deploy
 app.use('/authentication', authentication);
 app.use('/blogs', blogs);
 
 app.get('*', (req, res) => { // We only need one route for the server so we can use * instead of /
-    res.send(__dirname + '/client/dist/index.html'); // Change for build to /public/index.html
+    //res.send(__dirname + '/client/dist/index.html'); 
+    res.send(__dirname + '/public/index.html'); // deploy
   });
 
 // Start Server: Listen on port 8080
