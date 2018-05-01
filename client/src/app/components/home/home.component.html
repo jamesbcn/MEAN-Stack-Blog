@@ -6,7 +6,7 @@
         <a class="btn bg-dark text-white btn-lg" routerLink="/register" role="button">Register</a>
         <a class="btn btn-success btn-lg" routerLink="/login" role="button">Log in &raquo;</a>
       </div>
-      <div *ngIf="loggedIn()">
+      <div class="reg-login" *ngIf="loggedIn()">
         <a class="btn bg-dark text-white btn-lg" routerLink="/blog" role="button">Blog</a>
       </div>
     </div>
