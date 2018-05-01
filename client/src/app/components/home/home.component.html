@@ -1,8 +1,8 @@
 <div class="jumbotron">
     <div class="container">
       <h1 class="display-3">Hola a todos!</h1>
-      <p>This is a MEAN stack blog application. Mauris ultrices nulla eget ultrices efficitur. Vestibulum tortor dui, fermentum quis rutrum vel, sollicitudin id velit. Vestibulum purus ligula, laoreet nec pretium non, consectetur sit amet libero. Suspendisse nec accumsan tellus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nunc mattis, metus id blandit pharetra, velit lectus facilisis ex, eu hendrerit ante mauris vitae risus.</p>
-      <div *ngIf="!loggedIn()">
+      <p>Mauris ultrices nulla eget ultrices efficitur. Vestibulum tortor dui, fermentum quis rutrum vel, sollicitudin id velit. Vestibulum purus ligula, laoreet nec pretium non, consectetur sit amet libero. Suspendisse nec accumsan tellus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nunc mattis, metus id blandit pharetra, velit lectus facilisis ex, eu hendrerit ante mauris vitae risus.</p>
+      <div class="buttons" ngIf="!loggedIn()">
         <a class="btn bg-dark text-white btn-lg" routerLink="/register" role="button">Register</a>
         <a class="btn btn-success btn-lg" routerLink="/login" role="button">Log in &raquo;</a>
       </div>
