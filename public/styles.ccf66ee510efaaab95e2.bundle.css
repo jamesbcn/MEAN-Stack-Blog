@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Oswald);.btn,.card-title,.display-3,.field-label,.header,.modal-title,.navbar,.post-body,.post-title{font-family:Oswald,sans-serif}/*!
+@import url(https://fonts.googleapis.com/css?family=Oswald);.btn,.card-title,.display-3,.field-label,.header,.modal-title,.navbar,.post-body,.post-title{font-family:Oswald,sans-serif}.spinner:before{content:"";-webkit-box-sizing:border-box;box-sizing:border-box;position:absolute;top:50%;left:50%;height:50px;width:50px;margin-top:-25px;margin-left:-25px;border-radius:50%;border:3px solid #d3d3d3;border-top-color:#212529;-webkit-animation:.7s linear infinite spinner;animation:.7s linear infinite spinner}@-webkit-keyframes spinner{to{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}@keyframes spinner{to{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}/*!
  * Bootstrap v4.0.0 (https://getbootstrap.com)
  * Copyright 2011-2018 The Bootstrap Authors
  * Copyright 2011-2018 Twitter, Inc.

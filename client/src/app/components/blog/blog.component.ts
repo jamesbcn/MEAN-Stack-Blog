@@ -145,7 +145,7 @@ export class BlogComponent implements OnInit {
 
     setTimeout(() => {
       this.loadingBlogs = false;
-    }, 4000);
+    }, 1000);
   }
 
   getAllBlogs() {

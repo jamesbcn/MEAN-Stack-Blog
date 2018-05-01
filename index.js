@@ -27,8 +27,8 @@ app.use('/authentication', authentication);
 app.use('/blogs', blogs);
 
 app.get('*', (req, res) => { // We only need one route for the server so we can use * instead of /
-    //res.send(__dirname + '/client/dist/index.html'); 
-    res.send(__dirname + '/public/index.html'); // deploy
+    // res.send(__dirname + '/client/dist/index.html'); 
+     res.send(__dirname + '/public/index.html'); // deploy
   });
 
 // Start Server: Listen on port 8080
